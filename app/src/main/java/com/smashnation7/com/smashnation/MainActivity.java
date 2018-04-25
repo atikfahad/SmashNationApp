@@ -1,6 +1,8 @@
 package com.smashnation7.com.smashnation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     WebView webView;
@@ -23,13 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         webView = (WebView) findViewById(R.id.smashWeb);
-        webView.loadUrl("https://smashnation7.com");
-
+        isConnected();
         Button reLoad = (Button) findViewById(R.id.bReload);
         reLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                webView.reload();
+                isConnected();
             }
         });
         Button share = (Button) findViewById(R.id.bShare);
@@ -49,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isConnected();
+    }
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+    public void isConnected(){
+        if(isOnline()){
+            webView.loadUrl("https://smashnation7.com");
+        }
+        else
+            Toast.makeText(getApplicationContext(), "You are not connected with network!", Toast.LENGTH_LONG).show();
     }
 
     @Override
