@@ -2,7 +2,6 @@ package com.smashnation7.com.smashnation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        SharedPreferences sharedPref =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean switchPref = sharedPref.getBoolean
-                (SettingsActivity.KEY_PREF_EXAMPLE_SWITCH, false);
-        Toast.makeText(this, switchPref.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
