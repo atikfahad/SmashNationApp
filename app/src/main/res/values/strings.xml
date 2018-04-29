@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">SmashNation</string>
+    <string name="app_name">Smash Nation Badmintion</string>
     <string name="action_settings">Settings</string>
     <string name="switch_summary">switch this option on or off</string>
     <string name="switch_title">Notifications</string>
+    <string name="differentLang1">
+        Harap aktifkan “Notifikasi Layar Kunci” dan “Notifikasi Mengambang” dalam pengaturan ponsel untuk menerima pemberitahuan tentang pertandingan penting untuk ditonton. Terima kasih telah mendukung SmashNation
+    </string>
+    <string name="differentLang2">
+        Please enable “Lock Screen Notifications” and “Floating Notifications” in phone settings to receive alerts about important matches to watch. Thank you for supporting SmashNation
+    </string>
 </resources>

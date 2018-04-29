@@ -4,6 +4,19 @@
     <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="switch_preference_1"
-        android:summary="@string/switch_summary"
         android:title="@string/switch_title" />
+    <PreferenceCategory
+        android:persistent="false"
+        android:title="@string/differentLang1">
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:persistent="false"
+
+        android:title="@string/differentLang2">
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:persistent="false"
+        android:title="WWW.SMASHNATION7.COM">
+    </PreferenceCategory>
+
 </PreferenceScreen>

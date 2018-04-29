@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
     private AdView mAdView;
@@ -25,16 +26,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            FirebaseMessaging.getInstance().subscribeToTopic("news");
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         webView = (WebView) findViewById(R.id.smashWeb);
         isConnected();
-        Button reLoad = (Button) findViewById(R.id.bReload);
+        final Button reLoad = (Button) findViewById(R.id.bReload);
         reLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                webView.clearCache(true);
                 isConnected();
+
             }
         });
         Button share = (Button) findViewById(R.id.bShare);
@@ -42,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    final String appPackageName = getApplicationContext().getPackageName();
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("text/plain");
                     i.putExtra(Intent.EXTRA_SUBJECT, "Smash Nation");
                     String sAux = "\nLet Me Recommend You This Application\n\n";
-                    sAux = sAux + "https://play.google.com/store/apps/details?id=the.package.id \n\n";
+                    sAux = sAux + "https://play.google.com/store/apps/details?id="+ appPackageName +" \n\n";
                     i.putExtra(Intent.EXTRA_TEXT, sAux);
                     startActivity(Intent.createChooser(i, "Choose One"));
                 } catch(Exception e) {
@@ -54,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        //MobileAds.initialize(this, "ca-app-pub-8353350959820749~2436165388");
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-8353350959820749~2436165388");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
     }
 
     @Override

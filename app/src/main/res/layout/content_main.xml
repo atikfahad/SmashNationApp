@@ -8,24 +8,31 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.smashnation7.com.smashnation.MainActivity"
     tools:showIn="@layout/activity_main">
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/smashWeb"
-        android:layout_alignParentTop="true">
-    </WebView>
 
+    <LinearLayout
+        android:id="@+id/bannerAdLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
         android:visibility="visible"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="ca-app-pub-8353350959820749/9657724441"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_above="@id/bannerAdLayout">
+        <WebView
+            android:id="@+id/smashWeb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
-    </com.google.android.gms.ads.AdView>
-
-
-<!-- ca-app-pub-8353350959820749/9657724441 -->
 </RelativeLayout>
