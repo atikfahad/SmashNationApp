@@ -3,6 +3,7 @@ package com.smashnation7.com.smashnation;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            FirebaseMessaging.getInstance().subscribeToTopic("news");
+            FirebaseMessaging.getInstance().subscribeToTopic("url");
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        if(getIntent().getExtras() != null){
+            String url = getIntent().getExtras().getString("url");
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(url));
+            try {
+                getApplicationContext().startActivity(webIntent);
+                }
+            catch (Exception e){}
+
+        }
     }
 
     @Override

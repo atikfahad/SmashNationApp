@@ -9,4 +9,5 @@
     <string name="differentLang2">
         Please enable “Lock Screen Notifications” and “Floating Notifications” in phone settings to receive alerts about important matches to watch. Thank you for supporting SmashNation
     </string>
+    <string name="title_activity_notification">NotificationActivity</string>
 </resources>
