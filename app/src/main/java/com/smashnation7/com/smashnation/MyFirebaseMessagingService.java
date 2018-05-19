@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
@@ -16,14 +17,20 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        SharedPreferences preferences = getSharedPreferences("NotificationList", MODE_PRIVATE);
+        int latest20 = preferences.getInt("latest20", 1);
+        SharedPreferences.Editor editor = preferences.edit();
         Intent intent = new Intent(this, MainActivity.class);
 
         if(remoteMessage.getData().size() > 0){
             String message = remoteMessage.getData().get("url");
             Bundle bundle = new Bundle();
-
             bundle.putString("url", message);
             intent.putExtras(bundle);
+            editor.putString(Integer.toString(latest20++), message);
+            if(latest20 == 21){
+                editor.putInt("latest20", 1);
+            }
         }
 
 

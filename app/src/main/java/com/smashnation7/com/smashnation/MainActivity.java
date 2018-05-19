@@ -2,6 +2,7 @@ package com.smashnation7.com.smashnation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,11 +28,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             FirebaseMessaging.getInstance().subscribeToTopic("url");
+            SharedPreferences.Editor editor = getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit();
+            editor.putBoolean("isFirstRun", false);
+            editor.commit();
         }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -63,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        Button notificationList = (Button) findViewById(R.id.bNotificationList);
+        notificationList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ShowNotifications.class);
+                startActivity(intent);
+            }
+        });
+
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         MobileAds.initialize(this, "ca-app-pub-8353350959820749~2436165388");
         mAdView = findViewById(R.id.adView);
@@ -71,13 +86,14 @@ public class MainActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             String url = getIntent().getExtras().getString("url");
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(url));
-            try {
-                getApplicationContext().startActivity(webIntent);
+            if(url != null){
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(url));
+                try {
+                    getApplicationContext().startActivity(webIntent);
                 }
-            catch (Exception e){}
-
+                catch (Exception e){}
+            }
         }
     }
 
