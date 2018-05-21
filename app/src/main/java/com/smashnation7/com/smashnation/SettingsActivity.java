@@ -3,7 +3,6 @@ package com.smashnation7.com.smashnation;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.SwitchPreferenceCompat;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -17,9 +16,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(android.R.id.content, new SettingsFragment())
-//                .commit();
         setContentView(R.layout.activity_settings);
         switchState = getSharedPreferences("switch_state_save", MODE_PRIVATE)
                 .getBoolean("switch_state", true);
