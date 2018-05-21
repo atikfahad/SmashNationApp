@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context="com.smashnation7.com.smashnation.SettingsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="92dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"/>
+
+
+    <TextView
+        android:layout_below="@id/switch1"
+        android:id="@+id/text"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="48dp"
+        android:text="@string/differentLang1"/>
+    <TextView
+        android:layout_below="@id/text"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/differentLang2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WWW.SMASHNATION7.COM"
+        android:textAlignment="center"
+        android:paddingBottom="48dp"
+        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +21,6 @@ public class ShowNotifications extends AppCompatActivity {
         if(getSharedPreferences("NotificationList", MODE_PRIVATE) != null) {
             SharedPreferences preferences = getSharedPreferences("NotificationList", MODE_PRIVATE);
             int totalList = preferences.getInt("latest20", 0);
-            Log.d("FROM Notifications", "onCreate: "+ totalList);
             if(totalList == 0)
                 notificationList.add("No Notifications yet!");
             for (int i = totalList; i > 0; i--) {

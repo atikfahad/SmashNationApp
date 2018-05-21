@@ -6,12 +6,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-
-
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -35,7 +33,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             editor.putString(Integer.toString(++latest20), message);
             editor.putString(Integer.toString(latest20) + "title", messageHead);
             editor.putInt("latest20", latest20);
-            Log.d("From Service", "onMessageReceived: "+ latest20);
             editor.commit();
         }
 
@@ -53,11 +50,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mNotificationManager.createNotificationChannel(channel);
         }
 
-
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "default");
         notificationBuilder.setContentTitle(remoteMessage.getNotification().getTitle());
         notificationBuilder.setContentText(remoteMessage.getNotification().getBody());
         notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setSound(defaultSoundUri);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
         notificationBuilder.setContentIntent(pendingIntent);
 
