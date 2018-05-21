@@ -22,10 +22,10 @@ public class ShowNotifications extends AppCompatActivity {
         if(getSharedPreferences("NotificationList", MODE_PRIVATE) != null) {
             SharedPreferences preferences = getSharedPreferences("NotificationList", MODE_PRIVATE);
             int totalList = preferences.getInt("latest20", 0);
+            Log.d("FROM Notifications", "onCreate: "+ totalList);
             if(totalList == 0)
                 notificationList.add("No Notifications yet!");
             for (int i = totalList; i > 0; i--) {
-                Log.d("Ekhane Paowar Kotha", preferences.getString(Integer.toString(i) + "title", ""));
                 notificationList.add(preferences.getString(Integer.toString(i) + "title", ""));
             }
         }
