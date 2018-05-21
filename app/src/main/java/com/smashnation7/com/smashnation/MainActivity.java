@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             FirebaseMessaging.getInstance().subscribeToTopic("url");
+            FirebaseMessaging.getInstance().subscribeToTopic("news");
             SharedPreferences.Editor editor = getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit();
             editor.putBoolean("isFirstRun", false);
             editor.commit();

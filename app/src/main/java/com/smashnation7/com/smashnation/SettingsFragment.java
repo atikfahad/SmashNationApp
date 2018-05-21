@@ -22,10 +22,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 boolean isChecked = (Boolean) newValue;
                 if(isChecked){
                     FirebaseMessaging.getInstance().subscribeToTopic("url");
+                    FirebaseMessaging.getInstance().subscribeToTopic("news");
                     Toast.makeText(getContext(), "You are subscribed", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     FirebaseMessaging.getInstance().unsubscribeFromTopic("url");
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("news");
                     Toast.makeText(getContext(), "Your subscription is cancelled", Toast.LENGTH_SHORT).show();
                 }
                 return true;

@@ -17,20 +17,23 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        SharedPreferences preferences = getSharedPreferences("NotificationList", MODE_PRIVATE);
-        int latest20 = preferences.getInt("latest20", 1);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("NotificationList", Context.MODE_PRIVATE);
+        int latest20 = preferences.getInt("latest20", 0);
         SharedPreferences.Editor editor = preferences.edit();
         Intent intent = new Intent(this, MainActivity.class);
-
         if(remoteMessage.getData().size() > 0){
             String message = remoteMessage.getData().get("url");
+            String messageHead = "";
+            if(remoteMessage.getData().get("title") != null)
+                messageHead = remoteMessage.getData().get("title");
             Bundle bundle = new Bundle();
             bundle.putString("url", message);
+            bundle.putString("title", messageHead);
             intent.putExtras(bundle);
-            editor.putString(Integer.toString(latest20++), message);
-            if(latest20 == 21){
-                editor.putInt("latest20", 1);
-            }
+            editor.putString(Integer.toString(++latest20), message);
+            editor.putString(Integer.toString(latest20) + "title", messageHead);
+            editor.putInt("latest20", latest20);
+            editor.commit();
         }
 
 
